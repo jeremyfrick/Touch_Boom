@@ -44,20 +44,20 @@ class gameSettingsViewController: UITableViewController {
     @IBAction func voiceSwitchChange(sender: AnyObject) {
         if voiceSwitch.on {
             userDefaults.setBool(true, forKey: "voice")
-            println("true")
+            print("true")
         } else {
             userDefaults.setBool(false, forKey: "voice")
-            println("false")
+            print("false")
         }
     }
     
     @IBAction func soundFXSwitchChange(sender: UISwitch) {
         if soundFXSwitch.on {
             userDefaults.setBool(true, forKey: "sound")
-            println("true")
+            print("true")
         } else {
             userDefaults.setBool(false, forKey: "sound")
-            println("false")
+            print("false")
         }
     }
     
@@ -65,10 +65,10 @@ class gameSettingsViewController: UITableViewController {
     @IBAction func backgroundMusicSwitchChange(sender: UISwitch) {
         if backgroundSoundSwitch.on {
             userDefaults.setBool(true, forKey: "background")
-            println("true")
+            print("true")
         } else {
             userDefaults.setBool(false, forKey: "background")
-            println("false")
+            print("false")
         }
     }
     

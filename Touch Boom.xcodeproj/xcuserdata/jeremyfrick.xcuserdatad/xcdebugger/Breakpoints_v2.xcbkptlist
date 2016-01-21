@@ -9,22 +9,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Touch Boom/GameBoardViewController.swift"
-            timestampString = "454377811.266275"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
-            landmarkName = "createEmitter()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Touch Boom/ScoreBuilder.swift"
             timestampString = "454013005.421119"
             startingColumnNumber = "9223372036854775807"
@@ -49,54 +33,6 @@
             endingLineNumber = "17"
             landmarkName = "animateTransition(_:)"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Touch Boom/GameBoardViewController.swift"
-            timestampString = "454377811.266275"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
-            landmarkName = "createEmitter()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Touch Boom/GameBoardViewController.swift"
-            timestampString = "454377811.266275"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Touch Boom/GameBoardViewController.swift"
-            timestampString = "454377811.266275"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "GameBoardViewController"
-            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -134,7 +70,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Touch Boom/gameSettingsViewController.swift"
@@ -150,7 +86,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Touch Boom/gameSettingsViewController.swift"
@@ -161,6 +97,53 @@
             endingLineNumber = "12"
             landmarkName = "gameSettingsViewController"
             landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Touch_Boom.gameSettingsViewController.__deallocating_deinit"
+                  moduleName = "Touch Boom"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeremyfrick/GitHub/Touch_Boom/Touch%20Boom/gameSettingsViewController.swift"
+                  timestampString = "475088433.4008"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Touch_Boom.gameSettingsViewController.init (Touch_Boom.gameSettingsViewController.Type)(style : C.UITableViewStyle) -&gt; Touch_Boom.gameSettingsViewController"
+                  moduleName = "Touch Boom"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeremyfrick/GitHub/Touch_Boom/Touch%20Boom/gameSettingsViewController.swift"
+                  timestampString = "475088433.400958"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "19">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Touch_Boom.gameSettingsViewController.init (Touch_Boom.gameSettingsViewController.Type)(coder : ObjectiveC.NSCoder) -&gt; Swift.Optional&lt;Touch_Boom.gameSettingsViewController&gt;"
+                  moduleName = "Touch Boom"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeremyfrick/GitHub/Touch_Boom/Touch%20Boom/gameSettingsViewController.swift"
+                  timestampString = "475088433.401229"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -185,45 +168,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Touch Boom/GameBoardViewController.swift"
-            timestampString = "454381869.853056"
+            filePath = "Touch Boom/TransitionPresentationAnimator.swift"
+            timestampString = "474873068.436659"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
-            landmarkName = "touchesBegan(_:withEvent:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Touch Boom/GameBoardViewController.swift"
-            timestampString = "454380201.191269"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
-            landmarkName = "createEmitter()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Touch Boom/GameBoardViewController.swift"
-            timestampString = "454381869.853056"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "missedShot()"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "animateTransition(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

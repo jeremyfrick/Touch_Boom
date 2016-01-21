@@ -41,7 +41,7 @@ class GameStartViewController: UIViewController, AVAudioPlayerDelegate {
         
         //setup background audio and play if enabled
         if BackgroundSetting {
-            audioPlayer = AVAudioPlayer(contentsOfURL: entrance, error: nil)
+            audioPlayer = try! AVAudioPlayer(contentsOfURL: entrance)
             audioPlayer.delegate = self
             audioPlayer.numberOfLoops = -1
             audioPlayer.volume = 0.3
@@ -128,25 +128,25 @@ class GameStartViewController: UIViewController, AVAudioPlayerDelegate {
         
         localPlayer.authenticateHandler = {(ViewController, error) -> Void in
             if((ViewController) != nil) {
-                self.presentViewController(ViewController, animated: true, completion: nil)
+                self.presentViewController(ViewController!, animated: true, completion: nil)
             } else if (localPlayer.authenticated) {
-                println("Local player already authenticated")
+                print("Local player already authenticated")
                 self.gameCenterEnabled = true
                 
                 // Get the default leaderboard ID
-                localPlayer.loadDefaultLeaderboardIdentifierWithCompletionHandler({ (leaderboardIdentifer: String!, error: NSError!) -> Void in
+                localPlayer.loadDefaultLeaderboardIdentifierWithCompletionHandler({ (leaderboardIdentifer: String?, error: NSError?) -> Void in
                     if error != nil {
-                        println(error)
+                        print(error)
                     } else {
-                        self.gameCenterDefaultLeaderBoard = leaderboardIdentifer
+                        self.gameCenterDefaultLeaderBoard = leaderboardIdentifer!
                     }
                 })
                 
                 
             } else {
                 self.gameCenterEnabled = false
-                println("Local player could not be authenticated, disabling game center")
-                println(error)
+                print("Local player could not be authenticated, disabling game center")
+                print(error)
             }
             
         }

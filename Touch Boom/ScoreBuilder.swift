@@ -16,8 +16,8 @@ class ScoreBuilder: NSObject {
     var voiceSetting = Bool()
     
     func addToScore() -> Int {
-    var randomPoints = (Int(arc4random_uniform(15890)) * bonusMultiplier)
-        println("\(score)")
+    let randomPoints = (Int(arc4random_uniform(15890)) * bonusMultiplier)
+        print("\(score)")
         score += randomPoints
         return score
     }
@@ -30,11 +30,11 @@ class ScoreBuilder: NSObject {
     func bonusQualifier(oldTouch:CGPoint, newTouch:CGPoint) {
         //determines if the touchpoint was the exact emitter location. If it was a bonus multiplier is randomly created
         if oldTouch == newTouch {
-            println("NO BONUS")
+            print("NO BONUS")
         }else {
-            println("BOUNS")
+            print("BOUNS")
             bonusMultiplier = (Int(arc4random_uniform(10) + 1))
-            println("Bonus multiplier: \(bonusMultiplier)")
+            print("Bonus multiplier: \(bonusMultiplier)")
             if voiceSetting {
                 sound.bonusAction()
             }

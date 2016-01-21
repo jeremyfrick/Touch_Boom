@@ -47,6 +47,7 @@ class GameBoardViewController: UIViewController, AVAudioPlayerDelegate {
     var soundFXSetting = Bool()
     var backgroundSetting = Bool()
     var miss = Bool()
+    var missedShotCount = 0
     
 
     
@@ -67,7 +68,7 @@ class GameBoardViewController: UIViewController, AVAudioPlayerDelegate {
         
         //Background Sound
         if backgroundSetting {
-            backgroundplayer = AVAudioPlayer(contentsOfURL: background, error: nil)
+            backgroundplayer = try! AVAudioPlayer(contentsOfURL: background)
             backgroundplayer.delegate = self
             backgroundplayer.numberOfLoops = -1
             backgroundplayer.volume = 0.5
@@ -173,36 +174,43 @@ class GameBoardViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     func missedShot(){
-        var newEmitterLocation = createNewEmitterLocation()
-        var animation = CABasicAnimation()
-        animation.keyPath = "testing"
-        animation.fromValue = emitterLayer .valueForKey("position")
-        animation.toValue = NSValue(CGPoint: newEmitterLocation)
-        animation.duration = 20.00
-        view.layer.position = newEmitterLocation
-        view.layer .addAnimation(animation, forKey: "position")
+        missedShotCount = missedShotCount + 1
+        if missedShotCount < 3 {
+        let newEmitterLocation = createNewEmitterLocation()
+//        let animation = CABasicAnimation()
+//        animation.keyPath = "testing"
+//        animation.fromValue = emitterLayer .valueForKey("position")
+//        animation.toValue = NSValue(CGPoint: newEmitterLocation)
+//        animation.duration = 20.00
+//        view.layer.position = newEmitterLocation
+//        view.layer.addAnimation(animation, forKey: "position")
         
         
-//        let path = UIBezierPath()
-//        path.moveToPoint(newEmitterLocation)
-//        let anim = CAKeyframeAnimation(keyPath: "position")
-//        anim.path = path.CGPath
-//        anim.duration = 15.0
-//        self.emitterLayer.addAnimation(anim, forKey: "test")
+        let path = UIBezierPath()
+        path.moveToPoint(newEmitterLocation)
+        let anim = CAKeyframeAnimation(keyPath: "position")
+        anim.path = path.CGPath
+        anim.duration = 15.0
+        self.emitterLayer.addAnimation(anim, forKey: "test")
+        }
+        else {
+            endGame()
+        }
     }
     
     func createNewEmitterLocation()->CGPoint {
-        var randomY = CGFloat(arc4random_uniform(screenHeight))
-        var randomX = CGFloat(arc4random_uniform(screenWidth))
+        let randomY = CGFloat(arc4random_uniform(screenHeight))
+        let randomX = CGFloat(arc4random_uniform(screenWidth))
         
         return CGPointMake(randomX, randomY)
     }
 
     // MARK: Game Logic
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         //get location where user touched the screen and then play the sound effect
-        let touchPoint = (touches.first as! UITouch).locationInView(view)
+        //let touchPoint = (touches.first as! UITouch).locationInView(view)
+        let touchPoint = (touches.first)?.locationInView(view)
         if soundFXSetting {
             playSystemSound()
         }
@@ -213,12 +221,12 @@ class GameBoardViewController: UIViewController, AVAudioPlayerDelegate {
         }
         //If the game is not over then check if the touch was in the target area, play the sound and calculate the score
         if !(gameOver){
-            if (CGRectContainsPoint(touchArea, touchPoint)){
+            if (CGRectContainsPoint(touchArea, touchPoint!)){
                 if voiceSetting {
                     sound.PlayBoom()
                 }
-                scoring.bonusQualifier(emitterLocation, newTouch: touchPoint)
-                self.ScoreLabel.text = toString(scoring.addToScore())
+                scoring.bonusQualifier(emitterLocation, newTouch: touchPoint!)
+                self.ScoreLabel.text = String(scoring.addToScore())
                 createEmitter()
             } else {
                 if voiceSetting {
@@ -241,7 +249,7 @@ class GameBoardViewController: UIViewController, AVAudioPlayerDelegate {
             AudioServicesDisposeSystemSoundID(blaster)
         }
         //save score and segue to end game screen
-        let currentScore = ScoreLabel.text?.toInt()
+        let currentScore = Int((ScoreLabel.text)!)
         highScore = scoring.compareScores(currentScore!)
         reportScoreToGameCenter()
         self.performSegueWithIdentifier("toEndGame", sender: self)
@@ -263,19 +271,27 @@ class GameBoardViewController: UIViewController, AVAudioPlayerDelegate {
         var err: NSError?
         //check if other audio is playing
         if (self.audioSession.otherAudioPlaying) {
-            self.audioSession.setCategory(AVAudioSessionCategorySoloAmbient, error: &err)
+            do {
+                try self.audioSession.setCategory(AVAudioSessionCategorySoloAmbient)
+            } catch let error as NSError {
+                err = error
+            }
             self.backgroundMusicPlaying = false
         } else {
-            self.audioSession.setCategory(AVAudioSessionCategoryAmbient, error: &err)
+            do {
+                try self.audioSession.setCategory(AVAudioSessionCategoryAmbient)
+            } catch let error as NSError {
+                err = error
+            }
         }
         if ((err) != nil) {
-            println("Error \(err)")
+            print("Error \(err)")
         }
     }
     
     func configureSystemSound() {
         if soundFXSetting {
-        AudioServicesCreateSystemSoundID(blasterSound as! CFURL, &blaster)
+        AudioServicesCreateSystemSoundID(blasterSound as CFURL, &blaster)
         }
     }
     
@@ -296,13 +312,13 @@ class GameBoardViewController: UIViewController, AVAudioPlayerDelegate {
             self.backgroundMusicPlaying = true
     }
     
-    func audioPlayerBeginInterruption(player: AVAudioPlayer!) {
+    func audioPlayerBeginInterruption(player: AVAudioPlayer) {
         if backgroundSetting {
             self.backgrounMusicInterrupted = true
             self.backgroundMusicPlaying = false
         }
     }
-    func audioPlayerEndInterruption(player: AVAudioPlayer!, withOptions flags: Int) {
+    func audioPlayerEndInterruption(player: AVAudioPlayer, withOptions flags: Int) {
         if backgroundSetting {
             self.tryPlayMusic()
             self.backgrounMusicInterrupted = false
@@ -312,18 +328,18 @@ class GameBoardViewController: UIViewController, AVAudioPlayerDelegate {
     // MARK: GameCenter
     
     func reportScoreToGameCenter() {
-        var leaderboardID = "TouchBoomLeaderBoard"
-        var sScore = GKScore(leaderboardIdentifier: leaderboardID)
-        var score = ScoreLabel.text?.toInt()
+        let leaderboardID = "TouchBoomLeaderBoard"
+        let sScore = GKScore(leaderboardIdentifier: leaderboardID)
+        let score = Int((ScoreLabel.text)!)
         sScore.value = Int64(score!)
         
         let localPlayer: GKLocalPlayer = GKLocalPlayer()
         
-        GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError!) -> Void in
+        GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError?) -> Void in
             if error != nil {
-                println(error.localizedDescription)
+                print(error!.localizedDescription)
             } else {
-                println("Score submitted")
+                print("Score submitted")
                 
             }
         })

@@ -29,7 +29,7 @@ class GameOverViewController: UIViewController, GKGameCenterControllerDelegate {
         super.viewDidLoad()
         voiceSetting = userDefaults.boolForKey("voice")
         currentGameScoreLabel.text = currentGameScore
-        highScoreLabel.text = toString(highScore)
+        highScoreLabel.text = String(highScore)
     }
     override func viewDidAppear(animated: Bool) {
         if voiceSetting {
@@ -43,7 +43,7 @@ class GameOverViewController: UIViewController, GKGameCenterControllerDelegate {
     }
     
     @IBAction func shareButtonPressed(sender: AnyObject) {
-        var shareText = "I got a score of \(currentGameScore) killing evil emitters in Touch Boom"
+        let shareText = "I got a score of \(currentGameScore) killing evil emitters in Touch Boom"
         let itemsToShare = [shareText]
         let activityViewController = UIActivityViewController(activityItems: itemsToShare, applicationActivities: nil)
         let popoverVC = activityViewController as UIViewController
@@ -56,7 +56,7 @@ class GameOverViewController: UIViewController, GKGameCenterControllerDelegate {
     }
     
     
-    func shareTextImageAndURL(#sharingText: String?, sharingImage: UIImage?, sharingURL: NSURL?) {
+    func shareTextImageAndURL(sharingText sharingText: String?, sharingImage: UIImage?, sharingURL: NSURL?) {
         var sharingItems = [AnyObject]()
         
         if let text = sharingText {
@@ -81,12 +81,12 @@ class GameOverViewController: UIViewController, GKGameCenterControllerDelegate {
     
     // MARK: Game Center
     
-    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!) {
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
         gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func gameCenterButtonPressed(sender: AnyObject) {
-        var gameCenterViewController = GKGameCenterViewController()
+        let gameCenterViewController = GKGameCenterViewController()
         gameCenterViewController.gameCenterDelegate = self
         gameCenterViewController.viewState = GKGameCenterViewControllerState.Leaderboards
         gameCenterViewController.leaderboardIdentifier = "TouchBoomLeaderBoard"
