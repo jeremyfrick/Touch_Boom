@@ -48,6 +48,8 @@ class GameBoardViewController: UIViewController, AVAudioPlayerDelegate {
     var backgroundSetting = Bool()
     var miss = Bool()
     var missedShotCount = 0
+    lazy var timer = NSTimer()
+    lazy var hitPoints = Int()
     
 
     
@@ -105,6 +107,8 @@ class GameBoardViewController: UIViewController, AVAudioPlayerDelegate {
         backgroundplayer.play()
         }
         
+        //generate random number of missed shots allowed
+        hitPoints = Int(arc4random_uniform(UInt32(4))) + 2
         
     }
     
@@ -174,8 +178,10 @@ class GameBoardViewController: UIViewController, AVAudioPlayerDelegate {
     }
     
     func missedShot(){
+        // update missed shot counter
         missedShotCount = missedShotCount + 1
-        if missedShotCount < 3 {
+        // if missed less than allowed shots then create and move new emitter
+        if missedShotCount < hitPoints {
         let newEmitterLocation = createNewEmitterLocation()
 //        let animation = CABasicAnimation()
 //        animation.keyPath = "testing"
@@ -194,13 +200,16 @@ class GameBoardViewController: UIViewController, AVAudioPlayerDelegate {
         self.emitterLayer.addAnimation(anim, forKey: "test")
         }
         else {
+            dispatch_async(dispatch_get_main_queue(), {
+            self.sound.destroyed()
+            })
             endGame()
         }
     }
     
     func createNewEmitterLocation()->CGPoint {
-        let randomY = CGFloat(arc4random_uniform(screenHeight))
-        let randomX = CGFloat(arc4random_uniform(screenWidth))
+        let randomY = CGFloat(arc4random_uniform(screenHeight)) - 10.0
+        let randomX = CGFloat(arc4random_uniform(screenWidth)) - 10.0
         
         return CGPointMake(randomX, randomY)
     }
@@ -217,24 +226,27 @@ class GameBoardViewController: UIViewController, AVAudioPlayerDelegate {
         //if this is the first touch of the round then begin the timer
         if !(firstTouch) {
             firstTouch = true
-            let timer = NSTimer.scheduledTimerWithTimeInterval(50, target: self, selector: Selector("endGame"), userInfo: nil, repeats: false)
+            timer = NSTimer.scheduledTimerWithTimeInterval(50, target: self, selector: Selector("endGame"), userInfo: nil, repeats: false)
         }
         //If the game is not over then check if the touch was in the target area, play the sound and calculate the score
         if !(gameOver){
             if (CGRectContainsPoint(touchArea, touchPoint!)){
                 if voiceSetting {
-                    sound.PlayBoom()
+                    dispatch_async(dispatch_get_main_queue(), {
+                    self.sound.PlayBoom()
+                    })
                 }
                 scoring.bonusQualifier(emitterLocation, newTouch: touchPoint!)
                 self.ScoreLabel.text = String(scoring.addToScore())
                 createEmitter()
             } else {
                 if voiceSetting {
-                    sound.pewPew()
-                    missedShot()
+                    dispatch_async(dispatch_get_main_queue(), {
+                    self.sound.pewPew()
+                        })
+                        missedShot()
             }
-               // createEmitter()
-            }
+        }
         }
     }
     

@@ -53,5 +53,12 @@ class speach: NSObject {
         utterance.pitchMultiplier = 0.5
         synthesizer.speakUtterance(utterance)
     }
+    
+    func destroyed() {
+        let utterance = AVSpeechUtterance(string: "Your poor shooting has lead to your demise")
+        utterance.rate = 0.05
+        utterance.pitchMultiplier = 0.5
+        synthesizer.speakUtterance(utterance)
+    }
 
 }
